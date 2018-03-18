@@ -26,9 +26,7 @@ exports.getRequestIp = function(req) {
     let ip =
         req.headers["x-real-ip"] || //原请求来源ip
         req.headers["x-forwarded-for"] || //有代理时，各阶段ip的逗号分隔值, 最左侧的是原始ip
-        req.ip || //express处理过的req.connection.remoteAddress
-        req.connection.remoteAddress || //无代理时取ip
-        "";
+        req.ip || "";
     //若有多个，取原始IP
     if (ip.split(",").length > 0) {
         ip = ip.split(",")[0];

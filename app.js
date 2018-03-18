@@ -9,12 +9,14 @@ const Pug = require('pug');
 const log = require('log4js').getLogger("App");
 const config = require('./config/config');
 const SessionStore = require('./middleware/SessionStore');
+const LogService = require('./middleware/LogService');
 
 class App {
     constructor() {
         this.app = new Koa();
         this.router = new Router();
         /*===================== middlewares ====================== */
+        this.app.keys = ['this is a koa signed Cookie secret', 'i like Guqin'];
         //this.app.use(Logger());
         this.app.use(Session({
             maxAge: 86400000,
@@ -24,28 +26,26 @@ class App {
         this.app.use(Static(__dirname + '/public'));
         this.app.use(View(__dirname + '/model_view', { extension: 'pug' }));
 
+        this.app.use(require('./middleware/Response'));
         // x-response-time
         this.app.use(async (ctx, next) => {
-            const start = Date.now();
+            ctx.hitTime = Date.now();
             await next();
-            const ms = Date.now() - start;
+            const ms = Date.now() - ctx.hitTime;
             ctx.set('X-Response-Time', `${ms}ms`);
         });
 
-        // logger
+        // logger ==>>> /middleware/LogService
         this.app.use(async (ctx, next) => {
-            const start = Date.now();
             await next();
-            const ms = Date.now() - start;
-            console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
+            //console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
         });
 
         // response
         this.useAllRoutes();
 
         this.app.on('error', (err, ctx) => {
-            console.error(err);
-            // console.error('server error', err, ctx);
+            log.error(err);
         });
     };
 
@@ -54,6 +54,14 @@ class App {
         this.router.use('/', new this.DefaultPageController(this.router).getRouter().routes());
 
         this.app.use(this.router.routes());
+    }
+
+    useAllModel() {
+        // app.use(async (ctx, next) => {
+        //     if (!ctx.model)
+        //         ctx.model = require('./models');
+        //     await next();
+        // });
     }
 
     startUpHttpServer() {
@@ -115,9 +123,3 @@ class App {
 };
 
 module.exports = App;
-
-// app.use(async (ctx, next) => {
-//     if (!ctx.model)
-//         ctx.model = require('./models');
-//     await next();
-// });
