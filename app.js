@@ -2,11 +2,13 @@ const Koa = require('koa');
 const Bodyparser = require('koa-bodyparser');
 const Logger = require('koa-logger');
 const Router = require('koa-router');
+const Session = require('koa-session');
 const Static = require('koa-static');
 const View = require('koa-views');
 const Pug = require('pug');
 const log = require('log4js').getLogger("App");
 const config = require('./config/config');
+const SessionStore = require('./middleware/SessionStore');
 
 class App {
     constructor() {
@@ -14,6 +16,10 @@ class App {
         this.router = new Router();
         /*===================== middlewares ====================== */
         //this.app.use(Logger());
+        this.app.use(Session({
+            maxAge: 86400000,
+            store: new SessionStore()
+        }, this.app));
         this.app.use(Bodyparser());
         this.app.use(Static(__dirname + '/public'));
         this.app.use(View(__dirname + '/model_view', { extension: 'pug' }));
