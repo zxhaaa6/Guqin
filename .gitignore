@@ -60,3 +60,9 @@ typings/
 # config
 .vscode/
 .idea/
+config.js
+ipBlackList.js
+
+# test
+test/
+tmp/
