@@ -32,7 +32,7 @@ function sendJson(ctx) {
 function sendPage(ctx) {
     return async (log, templatePath, viewData) => {
         log.info(LogService.genFinalMessageStr(ctx, 200, '页面正常打开'));
-        return ctx.render(templatePath, viewData);
+        return await ctx.render(templatePath, viewData);
     }
 }
 

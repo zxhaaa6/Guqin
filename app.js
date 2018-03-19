@@ -1,3 +1,4 @@
+const path = require('path');
 const Koa = require('koa');
 const Bodyparser = require('koa-bodyparser');
 const Logger = require('koa-logger');
@@ -5,7 +6,7 @@ const Router = require('koa-router');
 const Session = require('koa-session');
 const Static = require('koa-static');
 const View = require('koa-views');
-const Pug = require('pug');
+const pug = require('pug');
 const log = require('log4js').getLogger("App");
 const config = require('./config/config');
 const SessionStore = require('./middleware/SessionStore');
@@ -23,25 +24,19 @@ class App {
             store: new SessionStore()
         }, this.app));
         this.app.use(Bodyparser());
-        this.app.use(Static(__dirname + '/public'));
-        this.app.use(View(__dirname + '/model_view', { extension: 'pug' }));
+        this.app.use(Static(path.join(__dirname, '/public')));
+        this.app.use(View(path.join(__dirname, '/model_view'), { extension: 'pug' }));
 
+        // response
         this.app.use(require('./middleware/Response'));
-        // x-response-time
+        // X-Response-Time
         this.app.use(async (ctx, next) => {
             ctx.hitTime = Date.now();
             await next();
             const ms = Date.now() - ctx.hitTime;
             ctx.set('X-Response-Time', `${ms}ms`);
         });
-
-        // logger ==>>> /middleware/LogService
-        this.app.use(async (ctx, next) => {
-            await next();
-            //console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
-        });
-
-        // response
+        //Routes
         this.useAllRoutes();
 
         this.app.on('error', (err, ctx) => {

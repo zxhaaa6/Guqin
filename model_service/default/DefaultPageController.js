@@ -11,7 +11,7 @@ class DefaultPageController {
     }
 
     getDefaultPage(ctx, next) {
-        ctx.sendPage('default/Home');
+        return ctx.sendPage(log, 'default/Home');
     }
 }
 
