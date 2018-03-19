@@ -11,8 +11,7 @@ class DefaultPageController {
     }
 
     getDefaultPage(ctx, next) {
-        let data = Util.genUniError(401, '不被认可！');
-        ctx.sendError(log, data);
+        ctx.sendPage('default/Home');
     }
 }
 
