@@ -27,8 +27,6 @@ class App {
         this.app.use(Static(path.join(__dirname, '/public')));
         this.app.use(View(path.join(__dirname, '/model_view'), { extension: 'pug' }));
 
-        // response
-        this.app.use(require('./middleware/Response'));
         // X-Response-Time
         this.app.use(async (ctx, next) => {
             ctx.hitTime = Date.now();
@@ -36,6 +34,8 @@ class App {
             const ms = Date.now() - ctx.hitTime;
             ctx.set('X-Response-Time', `${ms}ms`);
         });
+        // response
+        this.app.use(require('./middleware/Response'));
         //Routes
         this.useAllRoutes();
 
