@@ -25,7 +25,7 @@ class App {
         }, this.app));
         this.app.use(Bodyparser());
         this.app.use(Static(path.join(__dirname, '/public')));
-        this.app.use(View(path.join(__dirname, '/model_view'), { extension: 'pug' }));
+        this.app.use(View(path.join(__dirname, '/app_view'), { extension: 'pug' }));
 
         // X-Response-Time
         this.app.use(async (ctx, next) => {

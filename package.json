@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bluebird": "^3.5.1",
+    "faker": "4.1.0",
     "formidable": "^1.2.0",
     "koa": "2.5.0",
     "koa-bodyparser": "4.2.0",
