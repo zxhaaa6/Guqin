@@ -1,14 +1,14 @@
 const mongoose = require('mongoose');
 const MongodbManager = require('../system/MongodbManager');
 const User = require('../app_model/User');
-const UserData = require('./faker_data/User')
+const UserFaker = require('./faker_data/User');
 
 async function execInitDatabase() {
     await MongodbManager.connectMongodbServer();
     const insertDatas = [{
         collectionName: 'user',
         model: User,
-        datas: UserData
+        datas: UserFaker.data()
     }];
     for (let item of insertDatas) {
         await removeCollection(item.model, item.collectionName);

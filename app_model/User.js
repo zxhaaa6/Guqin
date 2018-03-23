@@ -11,7 +11,7 @@ const UserSchema = new Schema({
     province: String,
     city: String,
     active: Boolean,
-    dateCreated: Date,
+    dateCreated: { type: Date, default: Date.now },
     dateModified: { type: Date, default: Date.now }
 }, {collection: 'user'});
 

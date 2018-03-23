@@ -11,8 +11,8 @@ const fields = {
     province: () => Faker.address.country(),
     city: () => Faker.address.city(),
     active: () => Faker.random.boolean(),
-    dateCreated: () => Faker.date.past(2018),
-    dateModified: () => Faker.date.past(2018)
+    dateCreated: () => Faker.date.recent(20),
+    dateModified: () => Faker.date.recent(2)
 };
 
 exports.data = function() {
