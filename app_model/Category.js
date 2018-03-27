@@ -6,14 +6,16 @@ const CategorySchema = new Schema({
     name: String,
     nameEn: String,
     description: String,
+    sort: Number,
+    viewCount: Number,
     active: Boolean,
     dateCreated: { type: Date, default: Date.now },
     dateModified: { type: Date, default: Date.now }
 }, { collection: 'category' });
 
-// CategorySchema.index({
-//     active: 1
-// });
+CategorySchema.index({
+    parentId: 1
+});
 
 const Category = mongoose.model('Category', CategorySchema);
 
