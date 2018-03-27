@@ -13,7 +13,7 @@ const UserSchema = new Schema({
     active: Boolean,
     dateCreated: { type: Date, default: Date.now },
     dateModified: { type: Date, default: Date.now }
-}, {collection: 'user'});
+}, { collection: 'user' });
 
 UserSchema.index({
     email: 1,
