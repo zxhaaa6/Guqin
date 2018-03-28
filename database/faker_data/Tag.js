@@ -1,6 +1,8 @@
+const mongoose = require('mongoose');
 exports.data = function() {
     let datas = [];
     datas.push({
+        _id: mongoose.Types.ObjectId('5ab4fbb47c162e2ffff8a56b'),
         name: '名家专属',
         nameEn: 'mingjiazhuanshu',
         description: '',
@@ -10,6 +12,7 @@ exports.data = function() {
         dateCreated: new Date()
     });
     datas.push({
+        _id: mongoose.Types.ObjectId('5ab4fbb47c162e2ffff8a56c'),
         name: '精华',
         nameEn: 'jinghua',
         description: '',
@@ -18,4 +21,5 @@ exports.data = function() {
         dateCreated: new Date(),
         dateCreated: new Date()
     });
+    return datas;
 }
