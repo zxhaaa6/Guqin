@@ -57,5 +57,16 @@ exports.buildStr = function(strTemplate) {
             return topArgs[arguments[1]];
         }
     });
+};
 
+/**
+ * 随机数
+ * @param {Number} down 下限
+ * @param {Number} up 上限
+ */
+exports.genRandom = function(down, up) {
+    if (down > up) {
+        throw new Error("传入参数有误！");
+    }
+    return parseInt(Math.random() * (up - down + 1) + down);
 };

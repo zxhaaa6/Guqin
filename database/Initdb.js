@@ -6,6 +6,8 @@ const Category = require('../app_model/Category');
 const CategoryFaker = require('./faker_data/Category');
 const Tag = require('../app_model/Tag');
 const TagFaker = require('./faker_data/Tag');
+const Resource = require('../app_model/Resource');
+const ResourceFaker = require('./faker_data/Resource');
 
 async function execInitDatabase() {
     await MongodbManager.connectMongodbServer();
@@ -22,10 +24,17 @@ async function execInitDatabase() {
         model: Tag,
         datas: TagFaker.data()
     }];
+    let refIdsMap = {};
     for (let item of insertDatas) {
         await removeCollection(item.model, item.collectionName);
-        await initCollection(item.model, item.datas, item.collectionName);
+        let result = await initCollection(item.model, item.datas, item.collectionName);
+        refIdsMap[result.collection] = result.ids;
     }
+
+    // !!! resource needs ref key from ..... _ids
+    let resourceDatas = ResourceFaker.data(refIdsMap);
+    await removeCollection(Resource, 'resource');
+    await initCollection(Resource, resourceDatas, 'resource');
     return true;
 }
 
@@ -39,8 +48,16 @@ function removeCollection(model, collectionName) {
 }
 
 function initCollection(model, datas, collectionName) {
-    return model.insertMany(datas).then(() => {
+    return model.insertMany(datas).then(results => {
         console.log('------->>>' + collectionName + '<<<-----init ok!');
+        let idsMap = {
+            collection: collectionName,
+            ids: []
+        };
+        for (let i = 0; i < results.length; i++) {
+            idsMap.ids.push(results[i].id);
+        }
+        return idsMap;
     }).catch(err => {
         console.log('!!!<<<->>>' + collectionName + '<<<---init failed!');
         throw err;
