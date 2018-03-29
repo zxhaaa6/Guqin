@@ -8,9 +8,14 @@ const RedisManager = require('../system/RedisManager');
 const MongodbManager = require('../system/MongodbManager');
 
 // ===================== log module =========================
-let hasLogDir = fs.existsSync(__dirname + "/../logs");
+let hasLogDir = fs.existsSync(__dirname + "/logs");
 if (!hasLogDir) {
-    fs.mkdirSync(__dirname + "/../logs");
+    fs.mkdirSync(__dirname + "/logs");
+}
+
+let hasLogDir = fs.existsSync(__dirname + "/../logs/app");
+if (!hasLogDir) {
+    fs.mkdirSync(__dirname + "/../logs/app");
 }
 
 if (config.log4js.logging) {
