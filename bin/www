@@ -13,8 +13,8 @@ if (!hasLogDir) {
     fs.mkdirSync(__dirname + "/../logs");
 }
 
-let hasLogDir = fs.existsSync(__dirname + "/../logs/app");
-if (!hasLogDir) {
+let hasAppLogDir = fs.existsSync(__dirname + "/../logs/app");
+if (!hasAppLogDir) {
     fs.mkdirSync(__dirname + "/../logs/app");
 }
 

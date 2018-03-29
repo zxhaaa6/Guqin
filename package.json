@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "author": "Berg",
   "scripts": {
+    "init-cache": "node ./master.js",
     "start": "node ./bin/www",
+    "init-database": "node ./database/Initdb.js",
     "build": ""
   },
   "dependencies": {
