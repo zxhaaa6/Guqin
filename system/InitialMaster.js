@@ -15,18 +15,15 @@ _this.initProcess = async function() {
     log.info('✓ initProcess Success');
 };
 
-_this.fillMasterDataCache = function() {
-    let cacheTotalCount = 1;
-    return new Promise((resolve, reject) => {
+_this.fillMasterDataCache = async function() {
+    try {
+        let cacheTotalCount = 1;
         log.info("fillMasterDataCache...");
-        resolve();
-    }).then(() => {
+        // 1. user
         log.info('[1/' + cacheTotalCount + ']initUserCache');
-        // let UserCacheService = require('../app_service/user/UserCacheService');
-        // return new UserCacheService().initUserCache();
-    }).then(() => {
-        log.info('✓ fillMasterDataCache Success');
-    }).catch(err => {
+        const UserCacheService = require('../app_service/user/UserCacheService');
+        await new UserCacheService().initUserCache();
+    } catch (err) {
         Util.throwUpErr(log, err, "fillMasterDataCache");
-    });
+    }
 };

@@ -1,9 +1,7 @@
-const UserCacheService = require('../model_service/user/UserCacheService');
-const ArticleCacheService = require('../model_service/article/ArticleCacheService');
+const UserCacheService = require('../app_service/user/UserCacheService');
 
 let registMethod = {
     initUserCache: new UserCacheService().initUserCache,
-    ArticleCacheService: new ArticleCacheService().initNoneReplyArticleCache
 };
 
 module.exports = registMethod;
