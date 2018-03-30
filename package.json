@@ -4,8 +4,8 @@
   "author": "Berg",
   "scripts": {
     "init-cache": "node ./master.js",
-    "start": "node ./bin/www",
     "init-database": "node ./database/Initdb.js",
+    "start": "node ./bin/www",
     "build": ""
   },
   "dependencies": {

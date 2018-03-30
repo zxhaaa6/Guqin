@@ -7,7 +7,7 @@ A Guqin learning club
 ## Init Database
 `npm run init-database`
 
-## Start
+## Setup
 ### 1. init cache in redis
 `npm run init-cache`
 ### 2. start server
