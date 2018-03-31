@@ -9,10 +9,14 @@ const resolve = function(res) {
 };
 
 _this.initProcess = async function() {
-    log.info("initProcess...");
-    await RedisManager.connectRedisDbServer();
-    await MongodbManager.connectMongodbServer();
-    log.info('✓ initProcess Success');
+    try {
+        log.info("initProcess...");
+        await RedisManager.connectRedisDbServer();
+        await MongodbManager.connectMongodbServer();
+        log.info('✓ initProcess Success');
+    } catch (err) {
+        Util.throwUpErr(log, err, "initProcess");
+    }
 };
 
 _this.fillMasterDataCache = async function() {

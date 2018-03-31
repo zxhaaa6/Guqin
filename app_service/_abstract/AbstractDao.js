@@ -20,6 +20,17 @@ class AbstractDao {
         }
     }
 
+    async findDocuments(query) {
+        try {
+            if (query._id) {
+                query._id = mongoose.Types.ObjectId(query._id);
+            }
+            return await this.collection.find(query);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'findDocumentById');
+        }
+    }
+
 }
 
 module.exports = AbstractDao;

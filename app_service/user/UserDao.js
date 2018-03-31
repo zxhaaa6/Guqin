@@ -16,6 +16,15 @@ class UserDao extends AbstractDao {
         }
     }
 
+    async findAllUsers() {
+        try {
+            const query = { active: true };
+            return await this.findDocuments(query);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'findAllUsers');
+        }
+    }
+
 }
 
 module.exports = UserDao;

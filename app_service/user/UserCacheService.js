@@ -2,7 +2,9 @@ const Util = require('../../util/Util');
 const Promise = require('bluebird');
 const log = require("log4js").getLogger("UserCacheService");
 const UserDao = require('./UserDao');
-const RedisDb = require('../../system/RedisManager').getRedisDb();
+const RedisManager = require('../../system/RedisManager');
+const RedisClient = RedisManager.getRedisClient();
+const RedisDb = RedisManager.getRedisDb();
 const resolve = function(res) {
     res();
 };
@@ -14,27 +16,31 @@ class UserCacheService {
 
     async initUserCache() {
         try {
-            let id = '5abce1f03c3e546edac9b197';
-            const users = await this.UserDao.findUserById(id);
+            const users = await this.UserDao.findAllUsers();
+            await Promise.map(users, user => {
+                const doc = user._doc;
+                doc._id = doc._id.toString();
+                return RedisClient.hmsetAsync(RedisDb + '::user:' + doc._id, doc);
+            });
         } catch (err) {
             Util.throwUpErr(log, err, 'initUserCache');
         }
     }
 
-    // getUser(userId) {
-    //     return new Promise((resolve, reject) => {
-    //         if (userId) {
-    //             userId = userId.toString();
-    //             resolve();
-    //         } else {
-    //             reject(Util.genUniError(400, 'userId can not be null'));
-    //         }
-    //     }).then(() => {
-    //         return RedisDb.hgetallAsync('user:' + userId);
-    //     }).catch(err => {
-    //         Util.throwUpErr(log, err, 'getUser');
-    //     })
-    // }
+    async getUser(userId) {
+        return new Promise((resolve, reject) => {
+            if (userId) {
+                userId = userId.toString();
+                resolve();
+            } else {
+                reject(Util.genUniError(400, 'userId can not be null'));
+            }
+        }).then(() => {
+            return RedisClient.hgetallAsync(RedisDb + '::user:' + userId);
+        }).catch(err => {
+            Util.throwUpErr(log, err, 'getUser');
+        })
+    }
 
     // setUser(user) {
     //     return new Promise((resolve, reject) => {
