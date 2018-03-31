@@ -9,6 +9,7 @@
     "build": ""
   },
   "dependencies": {
+    "@koa/cors": "^2.2.1",
     "bluebird": "^3.5.1",
     "faker": "4.1.0",
     "formidable": "^1.2.0",
