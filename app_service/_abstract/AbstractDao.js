@@ -27,7 +27,18 @@ class AbstractDao {
             }
             return await this.collection.find(query);
         } catch (err) {
-            Util.throwUpErr(log, err, 'findDocumentById');
+            Util.throwUpErr(log, err, 'findDocuments');
+        }
+    }
+
+    async findOneDocument(query) {
+        try {
+            if (query._id) {
+                query._id = mongoose.Types.ObjectId(query._id);
+            }
+            return await this.collection.findOne(query);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'findOneDocument');
         }
     }
 

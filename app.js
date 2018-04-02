@@ -2,12 +2,14 @@ const path = require('path');
 const Koa = require('koa');
 const cors = require('@koa/cors');
 const Bodyparser = require('koa-bodyparser');
+const Jwt = require('koa-jwt');
 const Logger = require('koa-logger');
-const Router = require('koa-router');
 const Session = require('koa-session');
 const Static = require('koa-static');
 const View = require('koa-views');
 const pug = require('pug');
+const Router = require('./router');
+const secret = require('./private');
 const log = require('log4js').getLogger("App");
 const config = require('./config/config');
 const SessionStore = require('./middleware/SessionStore');
@@ -16,7 +18,6 @@ const LogService = require('./middleware/LogService');
 class App {
     constructor() {
         this.app = new Koa();
-        this.router = new Router();
         /*===================== middlewares ====================== */
         this.app.use(cors());
         this.app.keys = ['this is a koa signed Cookie secret', 'i like Guqin'];
@@ -47,10 +48,8 @@ class App {
     };
 
     useAllRoutes() {
-        this.DefaultPageController = require('./app_service/default/DefaultPageController');
-        this.router.use('/', new this.DefaultPageController(this.router).getRouter().routes());
-
-        this.app.use(this.router.routes());
+        this.router = new Router();
+        this.app.use(this.router.getRouter().routes(), this.router.getRouter().allowedMethods());
     }
 
     useAllModel() {
