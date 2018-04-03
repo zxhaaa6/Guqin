@@ -1,8 +1,6 @@
 const path = require('path');
 const Koa = require('koa');
-const cors = require('@koa/cors');
 const Bodyparser = require('koa-bodyparser');
-const Jwt = require('koa-jwt');
 const Logger = require('koa-logger');
 const Session = require('koa-session');
 const Static = require('koa-static');
@@ -19,7 +17,6 @@ class App {
     constructor() {
         this.app = new Koa();
         /*===================== middlewares ====================== */
-        this.app.use(cors());
         this.app.keys = ['this is a koa signed Cookie secret', 'i like Guqin'];
         //this.app.use(Logger());
         this.app.use(Session({
