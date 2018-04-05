@@ -7,7 +7,6 @@ const Static = require('koa-static');
 const View = require('koa-views');
 const pug = require('pug');
 const Router = require('./router');
-const secret = require('./private');
 const log = require('log4js').getLogger("App");
 const config = require('./config/config');
 const SessionStore = require('./middleware/SessionStore');
