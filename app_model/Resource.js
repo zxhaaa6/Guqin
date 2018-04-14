@@ -6,6 +6,7 @@ const ResourceSchema = new Schema({
     categoryLbId: Schema.Types.ObjectId,
     tagId: [Schema.Types.ObjectId],
     title: String,
+    description: String,
     text: String,
     authorId: Schema.Types.ObjectId,
     viewCount: Number,

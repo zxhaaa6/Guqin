@@ -7,10 +7,11 @@ const fields = {
     categoryLbId: () => { return null },
     tagId: () => { return [] },
     title: () => Faker.random.words(3),
-    text: () => Faker.random.words(50),
-    authorId: () => {return null},
+    description: () => Faker.random.words(20),
+    text: () => Faker.random.words(500),
+    authorId: () => { return null },
     viewCount: () => Faker.random.number(300),
-    active: () => Faker.random.boolean(),
+    active: () => { return true },
     dateCreated: () => Faker.date.recent(20),
     dateModified: () => Faker.date.recent(2)
 };

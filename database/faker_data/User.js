@@ -10,7 +10,7 @@ const fields = {
     country: () => Faker.address.country(),
     province: () => Faker.address.country(),
     city: () => Faker.address.city(),
-    active: () => Faker.random.boolean(),
+    active: () => { return true },
     dateCreated: () => Faker.date.recent(20),
     dateModified: () => Faker.date.recent(2)
 };
