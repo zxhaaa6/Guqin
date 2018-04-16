@@ -28,7 +28,7 @@ class CategoryCacheService {
     }
 
     async getCategory(categoryId) {
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             if (categoryId) {
                 categoryId = categoryId.toString();
                 resolve();

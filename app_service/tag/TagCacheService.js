@@ -28,7 +28,7 @@ class TagCacheService {
     }
 
     async getTag(tagId) {
-        return new Promise((resolve, reject) => {
+        return await new Promise((resolve, reject) => {
             if (tagId) {
                 tagId = tagId.toString();
                 resolve();
