@@ -1,5 +1,3 @@
-const jwt = require('jsonwebtoken');
-const secret  =require('../../private');
 const Util = require('../../util/Util');
 const log = require("log4js").getLogger("UserService");
 const UserDao = require('./UserDao');
@@ -17,7 +15,7 @@ class UserService {
             };
             const user = await this.UserDao.findOneUser(query);
             if (user) {
-                return jwt.sign({ data: user }, secret, { expiresIn: '1h' });
+                return user;
             } else {
                 Util.throwErr(log, 401, 'account or pass is wrong');
             }
