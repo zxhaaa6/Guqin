@@ -1,21 +1,17 @@
 const moment = require('moment');
 const Util = require('../../util/Util');
 const log = require("log4js").getLogger("DefaultPageService");
-const CategoryCacheService = require('../category/CategoryCacheService');
-const TagCacheService = require('../tag/TagCacheService');
-const UserCacheService = require('../user/UserCacheService');
+const ResourceCacheService = require('../resource/ResourceCacheService');
 
 class DefaultPageService {
     constructor() {
-
-        this.CategoryCacheService = new CategoryCacheService();
-        this.TagCacheService = new TagCacheService();
-        this.UserCacheService = new UserCacheService();
+        this.ResourceCacheService = new ResourceCacheService();
     }
 
-    async getDefaultData() {
+    async getDefaultData(viewData) {
         try {
-            
+            const hotResource = await this.ResourceCacheService.getHotResource();
+            return hotResource;
         } catch (err) {
             Util.throwUpErr(log, err, 'getDefaultData');
         }

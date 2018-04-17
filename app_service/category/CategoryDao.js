@@ -25,6 +25,15 @@ class CategoryDao extends AbstractDao {
         }
     }
 
+    async findCategorys(query) {
+        try {
+            query.active = true;
+            return await this.findDocuments(query);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'findCategorys');
+        }
+    }
+
     async findOneCategory(query) {
         try {
             return await this.findOneDocument(query);

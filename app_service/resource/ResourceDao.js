@@ -73,6 +73,18 @@ class ResourceDao extends AbstractDao {
         }
     }
 
+    async findHotResourceByCategoryLaId(categoryLaId) {
+        try {
+            const query = { categoryLaId },
+                sort = { dateModified: 'desc' },
+                start = 0,
+                pageSize = 6;
+            return await this.findResourcePages(query, sort, start, pageSize);
+        } catch (err) {
+            Util.throwUpErr(log, err, 'findHotResourceByCategoryLaId');
+        }
+    }
+
 }
 
 module.exports = ResourceDao;

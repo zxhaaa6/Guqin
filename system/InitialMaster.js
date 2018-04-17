@@ -21,7 +21,7 @@ _this.initProcess = async function() {
 
 _this.fillMasterDataCache = async function() {
     try {
-        let cacheTotalCount = 3;
+        let cacheTotalCount = 4;
         log.info("fillMasterDataCache...");
         // 1. initUserCache
         log.info('[1/' + cacheTotalCount + ']initUserCache');
@@ -35,6 +35,10 @@ _this.fillMasterDataCache = async function() {
         log.info('[3/' + cacheTotalCount + ']initTagCache');
         const TagCacheService = require('../app_service/tag/TagCacheService');
         await new TagCacheService().initTagCache();
+        // 3. initHotResourceCache
+        log.info('[4/' + cacheTotalCount + ']initHotResourceCache');
+        const ResourceCacheService = require('../app_service/resource/ResourceCacheService');
+        await new ResourceCacheService().initHotResourceCache();
     } catch (err) {
         Util.throwUpErr(log, err, "fillMasterDataCache");
     }
