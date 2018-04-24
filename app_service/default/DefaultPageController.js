@@ -19,11 +19,12 @@ class DefaultPageController {
     }
 
     async getDefaultPage(ctx, next) {
+        const viewData = {};
         await new Promise(RESOLVE).then(() => {
-            return this.DefaultPageService.getDefaultData();
-        }).then(results => {
-            return ctx.sendJson(log, results);
-            //return ctx.sendPage(log, 'default/Home');
+            return this.DefaultPageService.getDefaultData(viewData);
+        }).then(() => {
+            //return ctx.sendJson(log, viewData);
+            return ctx.sendPage(log, 'default/Home');
         }).catch(err => {
             return ctx.sendError(log, err);
         });

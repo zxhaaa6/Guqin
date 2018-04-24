@@ -10,8 +10,8 @@ class DefaultPageService {
 
     async getDefaultData(viewData) {
         try {
-            const hotResource = await this.ResourceCacheService.getHotResource();
-            return hotResource;
+            viewData.hotResource = await this.ResourceCacheService.getHotResource();
+            
         } catch (err) {
             Util.throwUpErr(log, err, 'getDefaultData');
         }
