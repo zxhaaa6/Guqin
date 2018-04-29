@@ -79,44 +79,11 @@ class ResourceService {
         }
     }
 
-    async createResource(data) {
+    async getResourceById(id) {
         try {
-            const saveData = {
-                categoryLaId: data.categoryLa,
-                tagId: data.tags,
-                title: data.title,
-                description: data.description,
-                text: data.text,
-                authorId: data.authorId
-            };
-            return await this.ResourceDao.createResource(saveData);
+            return await this.ResourceDao.findResourceById(id);
         } catch (err) {
-            Util.throwUpErr(log, err, 'createResource');
-        }
-    }
-
-    async updateResourceById(id, data) {
-        try {
-            const setData = {
-                categoryLaId: data.categoryLa,
-                tagId: data.tags,
-                title: data.title,
-                description: data.description,
-                text: data.text
-            };
-            await this.ResourceDao.updateResourceById(id, setData);
-            return { id };
-        } catch (err) {
-            Util.throwUpErr(log, err, 'updateResourceById');
-        }
-    }
-
-    async deleteResourceById(id) {
-        try {
-            await this.ResourceDao.deleteResourceById(id);
-            return { id };
-        } catch (err) {
-            Util.throwUpErr(log, err, 'deleteResourceById');
+            Util.throwUpErr(log, err, 'getResourceById');
         }
     }
 

@@ -11,9 +11,7 @@ class ResourceController {
         this.router = router;
         this.ResourceService = new ResourceService();
         this.router.get('/all', this.getAll.bind(this));
-        this.router.delete('/', this.deleteResource.bind(this));
-        this.router.post('/', this.postResource.bind(this));
-        this.router.put('/', this.putResource.bind(this));
+        this.router.get('/', this.getOneResource.bind(this));
     }
 
     getRouter() {
@@ -36,40 +34,7 @@ class ResourceController {
         });
     }
 
-    async postResource(ctx, next) {
-        await new Promise((resolve, reject) => {
-            if (ctx.request.body && ctx.request.body.data) {
-                resolve();
-            } else {
-                reject(Util.genUniError(400, 'params missing'));
-            }
-        }).then(() => {
-            ctx.request.body.data.authorId = ctx.state.user.data._id;
-            return this.ResourceService.createResource(ctx.request.body.data);
-        }).then(results => {
-            return ctx.sendJson(log, results);
-        }).catch(err => {
-            return ctx.sendError(log, err);
-        });
-    }
-
-    async putResource(ctx, next) {
-        await new Promise((resolve, reject) => {
-            if (ctx.request.body && ctx.request.body.id && ctx.request.body.data) {
-                resolve();
-            } else {
-                reject(Util.genUniError(400, 'params missing'));
-            }
-        }).then(() => {
-            return this.ResourceService.updateResourceById(ctx.request.body.id, ctx.request.body.data);
-        }).then(results => {
-            return ctx.sendJson(log, results);
-        }).catch(err => {
-            return ctx.sendError(log, err);
-        });
-    }
-
-    async deleteResource(ctx, next) {
+    async getOneResource(ctx, next) {
         await new Promise((resolve, reject) => {
             if (ctx.query && ctx.query.id) {
                 resolve();
@@ -77,9 +42,9 @@ class ResourceController {
                 reject(Util.genUniError(400, 'params missing'));
             }
         }).then(() => {
-            return this.ResourceService.deleteResourceById(ctx.query.id);
-        }).then(results => {
-            return ctx.sendJson(log, results);
+            return this.ResourceService.getResourceById(ctx.query.id);
+        }).then(result => {
+            return ctx.sendJson(log, result);
         }).catch(err => {
             return ctx.sendError(log, err);
         });
