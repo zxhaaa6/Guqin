@@ -62,6 +62,9 @@ typings/
 .idea/
 ipBlackList.js
 
+# dist
+dist/
+
 # test
 test/
 tmp/

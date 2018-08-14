@@ -5,6 +5,7 @@ import * as Bodyparser from 'koa-bodyparser';
 import * as Jwt from 'koa-jwt';
 import * as Session from 'koa-session';
 import * as Static from 'koa-static';
+import * as Views from 'koa-views';
 import { getLogger } from 'log4js';
 import * as path from 'path';
 import config from './config/config';
@@ -35,7 +36,13 @@ class App {
       ),
     );
     this.app.use(Bodyparser({}));
-    this.app.use(Static(path.join(__dirname, '/public')));
+    this.app.use(Static(path.join(__dirname, '/app_public')));
+    this.app.use(
+      Views(path.join(__dirname, '/app_view'), {
+        map: { hbs: 'handlebars' },
+        extension: 'hbs',
+      }),
+    );
 
     // X-Response-Time
     this.app.use(async (ctx, next) => {
@@ -59,9 +66,7 @@ class App {
     // response
     this.app.use(Response);
 
-    this.app.use(
-      Jwt({ secret }).unless({ path: [/^\/public/, /^\/user\/login/] }),
-    );
+    this.app.use(Jwt({ secret }).unless({ path: [/^\//] }));
     // Routes
     this.useAllRoutes();
 
