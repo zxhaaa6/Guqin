@@ -1,4 +1,4 @@
-const Faker = require('faker');
+import * as Faker from 'faker';
 
 const count = 8;
 const fields = {
@@ -17,8 +17,8 @@ const fields = {
   dateModified: () => Faker.date.recent(2),
 };
 
-exports.data = function() {
-  return [...Array(count)].map(() => {
+export const data = () =>
+  [...Array(count)].map(() => {
     const user = {};
     for (const key in fields) {
       if (fields.hasOwnProperty(key)) {
@@ -27,4 +27,3 @@ exports.data = function() {
     }
     return user;
   });
-};

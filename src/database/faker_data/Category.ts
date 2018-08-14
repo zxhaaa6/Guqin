@@ -1,7 +1,7 @@
-const Faker = require('faker');
-exports.data = function() {
-  let datas = [];
-  datas.push({
+import * as Faker from 'faker';
+
+export const data = () => [
+  {
     parentId: null,
     name: '古琴文化',
     nameEn: 'guqinwenhua',
@@ -10,9 +10,9 @@ exports.data = function() {
     viewCount: Faker.random.number(500),
     active: true,
     dateCreated: new Date(),
-    dateCreated: new Date(),
-  });
-  datas.push({
+    dateModified: new Date(),
+  },
+  {
     parentId: null,
     name: '古琴教学',
     nameEn: 'guqinjiaoxue',
@@ -21,9 +21,9 @@ exports.data = function() {
     viewCount: Faker.random.number(500),
     active: true,
     dateCreated: new Date(),
-    dateCreated: new Date(),
-  });
-  datas.push({
+    dateModified: new Date(),
+  },
+  {
     parentId: null,
     name: '古琴资讯',
     nameEn: 'guqinzixun',
@@ -32,9 +32,9 @@ exports.data = function() {
     viewCount: Faker.random.number(500),
     active: true,
     dateCreated: new Date(),
-    dateCreated: new Date(),
-  });
-  datas.push({
+    dateModified: new Date(),
+  },
+  {
     parentId: null,
     name: '古琴名家',
     nameEn: 'guqinmingjia',
@@ -43,9 +43,9 @@ exports.data = function() {
     viewCount: Faker.random.number(500),
     active: true,
     dateCreated: new Date(),
-    dateCreated: new Date(),
-  });
-  datas.push({
+    dateModified: new Date(),
+  },
+  {
     parentId: null,
     name: '古琴选购',
     nameEn: 'guqinxuangou',
@@ -54,9 +54,9 @@ exports.data = function() {
     viewCount: Faker.random.number(500),
     active: true,
     dateCreated: new Date(),
-    dateCreated: new Date(),
-  });
-  datas.push({
+    dateModified: new Date(),
+  },
+  {
     parentId: null,
     name: '琴谱',
     nameEn: 'qinpu',
@@ -65,7 +65,6 @@ exports.data = function() {
     viewCount: Faker.random.number(500),
     active: true,
     dateCreated: new Date(),
-    dateCreated: new Date(),
-  });
-  return datas;
-};
+    dateModified: new Date(),
+  },
+];

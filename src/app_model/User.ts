@@ -45,7 +45,7 @@ UserSchema.index({
   phone: 1,
 });
 
-export const Comment: mongoose.Model<IUser> = mongoose.model<IUser>(
+export const User: mongoose.Model<IUser> = mongoose.model<IUser>(
   'User',
   UserSchema,
 );

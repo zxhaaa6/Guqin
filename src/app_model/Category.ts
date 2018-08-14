@@ -32,7 +32,7 @@ CategorySchema.index({
   parentId: 1,
 });
 
-export const Comment: mongoose.Model<ICategory> = mongoose.model<ICategory>(
+export const Category: mongoose.Model<ICategory> = mongoose.model<ICategory>(
   'Category',
   CategorySchema,
 );

@@ -1,8 +1,8 @@
 version: '3.4'
 
 services:
-  kuaizu-api:
-    image: kuaizu-api
+  guqin:
+    image: guqin
     build: .
     environment:
       - NODE_ENV=${NODE_ENV}
@@ -16,7 +16,7 @@ services:
       - redis
       - mongodb
     networks:
-      - kuaizu
+      - guqin
     volumes:
       - ${PWD}/:/app
   redis:
@@ -25,10 +25,10 @@ services:
     ports:
       - 6379:6379
     networks:
-      - kuaizu
+      - guqin
     restart: unless-stopped
     volumes:
-      - kuaizu-redis:/data/redis
+      - guqin-redis:/data/redis
   mongodb:
     image: mongo:4.0
     container_name: "mongodb"
@@ -42,19 +42,19 @@ services:
     restart: unless-stopped
     volumes:
       - "${PWD}/docker/mongo_entrypoint/:/docker-entrypoint-initdb.d/"
-      - kuaizu-db:/data/db
+      - guqin-db:/data/db
     networks:
-      - kuaizu
+      - guqin
     healthcheck:
       test: "echo 'db.stats().ok' | mongo localhost:27017/${MONGODB_DB_NAME} --quiet"
       interval: 30s
       timeout: 10s
       retries: 3
 volumes:
-  kuaizu-db:
+  guqin-db:
     external: true
-  kuaizu-redis:
+  guqin-redis:
     external: true
 networks: 
-  kuaizu:
+  guqin:
     external: false

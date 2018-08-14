@@ -1,5 +1,5 @@
-const Faker = require('faker');
-const Util = require('../../util/Util');
+import * as Faker from 'faker';
+import { genRandom } from '../../util/Util';
 
 const count = 30;
 const fields = {
@@ -26,20 +26,19 @@ const fields = {
   dateModified: () => Faker.date.recent(2),
 };
 
-exports.data = function(refIdsMap) {
-  return [...Array(count)].map(() => {
+export const data = refIdsMap =>
+  [...Array(count)].map(() => {
     const resource = {};
-    for (let key in fields) {
+    for (const key in fields) {
       if (key === 'categoryLaId') {
-        resource[key] = refIdsMap.category[Util.genRandom(0, 5)];
+        resource[key] = refIdsMap.category[genRandom(0, 5)];
       } else if (key === 'tagId') {
-        resource[key] = [refIdsMap.tag[Util.genRandom(0, 1)]];
+        resource[key] = [refIdsMap.tag[genRandom(0, 1)]];
       } else if (key === 'authorId') {
-        resource[key] = refIdsMap.user[Util.genRandom(0, 7)];
+        resource[key] = refIdsMap.user[genRandom(0, 7)];
       } else {
         resource[key] = fields[key]();
       }
     }
     return resource;
   });
-};

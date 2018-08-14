@@ -39,7 +39,7 @@ ResourceSchema.index({
   authorId: 1,
 });
 
-export const Comment: mongoose.Model<IResource> = mongoose.model<IResource>(
+export const Resource: mongoose.Model<IResource> = mongoose.model<IResource>(
   'Resource',
   ResourceSchema,
 );

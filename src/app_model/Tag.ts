@@ -24,7 +24,4 @@ const TagSchema = new Schema(
   { collection: 'tag' },
 );
 
-export const Comment: mongoose.Model<ITag> = mongoose.model<ITag>(
-  'Tag',
-  TagSchema,
-);
+export const Tag: mongoose.Model<ITag> = mongoose.model<ITag>('Tag', TagSchema);
