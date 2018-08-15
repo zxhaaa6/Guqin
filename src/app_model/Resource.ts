@@ -19,7 +19,7 @@ const ResourceSchema = new Schema(
   {
     categoryLaId: { type: Schema.Types.ObjectId, ref: 'category' },
     categoryLbId: { type: Schema.Types.ObjectId, ref: 'category' },
-    tagId: [Schema.Types.ObjectId],
+    tagId: [{ type: Schema.Types.ObjectId, ref: 'tag' }],
     title: String,
     description: String,
     text: String,

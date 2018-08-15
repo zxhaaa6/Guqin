@@ -2,7 +2,7 @@ import * as mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 export interface ICategory extends mongoose.Document {
-  parentId: mongoose.Schema.Types.ObjectId;
+  parent: mongoose.Schema.Types.ObjectId;
   name: string;
   nameEn: string;
   description: string;
@@ -15,7 +15,7 @@ export interface ICategory extends mongoose.Document {
 
 const CategorySchema = new Schema(
   {
-    parentId: { type: Schema.Types.ObjectId, ref: 'category' },
+    parent: { type: Schema.Types.ObjectId, ref: 'category' },
     name: String,
     nameEn: String,
     description: String,
